@@ -15,24 +15,30 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Alamofire.request(.GET, "https://httpbin.org/get")
-            .responseJSON { response in
-                print(response.result)
-
-                let json = JSON(data: response.data!)
-                print(json)
-                
-                print(json["origin"])
-                print(json["headers"]["Host"])
-        }
-                
-        let user = "user"
-        let password = "password"
+//        Alamofire.request(.GET, "https://httpbin.org/get")
+//            .responseJSON { response in
+//                print(response.result)
+//
+//                let json = JSON(data: response.data!)
+//                print(json)
+//                
+//                print(json["origin"])
+//                print(json["headers"]["Host"])
+//        }
+//                
+//        let user = "user"
+//        let password = "password"
+//        
+//        Alamofire.request(.GET, "https://httpbin.org/basic-auth/\(user)/\(password)")
+//            .authenticate(user: user, password: password)
+//            .responseJSON { response in
+//                debugPrint(response)
+//        }
         
-        Alamofire.request(.GET, "https://httpbin.org/basic-auth/\(user)/\(password)")
-            .authenticate(user: user, password: password)
-            .responseJSON { response in
-                debugPrint(response)
+        Alamofire.request(.GET, "https://apple.com")
+            .responseString { response in
+                print("Success: \(response.result.isSuccess)")
+                print("Response String: \(response.result.value)")
         }
         // Do any additional setup after loading the view, typically from a nib.
     }
