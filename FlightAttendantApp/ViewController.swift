@@ -35,19 +35,34 @@ class ViewController: UIViewController {
 //                debugPrint(response)
 //        }
         
-        Alamofire.request(.GET, "https://apple.com")
+        Alamofire.request(.GET, "https://google.com")
             .responseString { response in
                 print("Success: \(response.result.isSuccess)")
                 print("Response String: \(response.result.value)")
+                self.createFile(response.result.value!, fileName: "GoogleHTML")
         }
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func createFile(textToWrite: String!, fileName: String!) -> Void {        
+        let text = textToWrite //just a text
+        
+        //this is just gonna work for me...idk how to get the project directory
+        let dir = "/Users/yolimeydan/Documents/Github Repositories/FlightAttendantApp/FlightAttendantApp/\(fileName).txt"
+        print(dir)
+        //writing
+        do {
+            try text.writeToFile(dir, atomically: false, encoding: NSUTF8StringEncoding)
+        }
+        catch {/* error handling here */}
+            print("Oh no")
+        //reading
+        do {
+            let text2 = try NSString(contentsOfFile: dir, encoding: NSUTF8StringEncoding)
+            print(text2)
+        }
+        catch {/* error handling here */}
+        
     }
-
-
 }
 
