@@ -25,9 +25,12 @@ class ViewController: UIViewController {
 //                print(json["origin"])
 //                print(json["headers"]["Host"])
 //        }
-        let parameters = "utf8=&#x2713;&authenticity_token=+xj+gu4X413A5cxkMXiLq6291XgdZQzIT1ZoaUdcAqN7ReOQ4CJ/ab9n/7HavBDMnC2JLlet++yD4zZ/EzXSPg==&user[username]=34234&user[password]=abcdfs"
         
-        let URL = NSURL(string: "https://auth.casenex.com/users/sign_in")
+        let username = ""
+        let password = ""
+        let parameters = "email=\(username)&pass=\(password)"
+        
+        let URL = NSURL(string: "https://en-gb.facebook.com/login/")
         let mutableURLRequest = NSMutableURLRequest(URL: URL!)
         mutableURLRequest.HTTPMethod = "POST"
         
@@ -41,7 +44,7 @@ class ViewController: UIViewController {
             .responseString { response in
                 print(response.result)
                 print("Response String: \(response.result.value)")
-                self.createFile(response.result.value, fileName: "ResponseString")
+                self.createFile(response.result.value, fileName: "ResponseHTML")
         }
     }
     
