@@ -15,37 +15,30 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        Alamofire.request(.GET, "https://httpbin.org/get")
-//            .responseJSON { response in
-//                print(response.result)
-//
-//                let json = JSON(data: response.data!)
-//                print(json)
-//                
-//                print(json["origin"])
-//                print(json["headers"]["Host"])
-//        }
+        let username = "myUsername"
+        let password = "myPassword"
+        let myParameters = "email=\(username)&pass=\(password)"
         
-        let username = ""
-        let password = ""
-        let parameters = "email=\(username)&pass=\(password)"
-        
-        let URL = NSURL(string: "https://en-gb.facebook.com/login/")
-        let mutableURLRequest = NSMutableURLRequest(URL: URL!)
-        mutableURLRequest.HTTPMethod = "POST"
-        
-        do {
-            mutableURLRequest.HTTPBody = parameters.dataUsingEncoding(NSUTF8StringEncoding)
-        } catch {
-            // No-op
+       
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.facebook.com/login/")!)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = myParameters.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+            guard error == nil && data != nil else {                                                          // check for fundamental networking error
+                print("error=\(error)")
+                return
+            }
+            
+            if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
+            }
+            
+            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            print("responseString = \(responseString)")
+            self.createFile(responseString as! String, fileName: "FacebookHTML")
         }
-        
-        Alamofire.request(mutableURLRequest)
-            .responseString { response in
-                print(response.result)
-                print("Response String: \(response.result.value)")
-                self.createFile(response.result.value, fileName: "ResponseHTML")
-        }
+        task.resume()
     }
     
     func createFile(textToWrite: String!, fileName: String!) -> Void {
