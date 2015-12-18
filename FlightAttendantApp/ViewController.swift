@@ -17,6 +17,8 @@ class ViewController: UIViewController {
         
         let username = "myUsername"
         let password = "myPassword"
+  
+        //format for myParameters: "nameOfInputField=value&nameOfInputField=value"
         let myParameters = "email=\(username)&pass=\(password)"
         
        
