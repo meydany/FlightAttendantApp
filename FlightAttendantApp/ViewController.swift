@@ -12,8 +12,12 @@ import SwiftyJSON
 
 class ViewController: UIViewController {
 
+    private var webView: UIWebView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        webView = UIWebView()
         
         let username = "myUsername"
         let password = "myPassword"
@@ -39,8 +43,10 @@ class ViewController: UIViewController {
             let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
             print("responseString = \(responseString)")
             self.createFile(responseString as! String, fileName: "FacebookHTML")
+            self.webView.loadRequest(request)
         }
         task.resume()
+        self.view = webView
     }
     
     func createFile(textToWrite: String!, fileName: String!) -> Void {
