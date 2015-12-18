@@ -35,8 +35,9 @@ class ViewController: UIViewController {
                 return
             }
             
-            if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+            let requestStatusCode = response as! NSHTTPURLResponse
+            if requestStatusCode != 200 {           // check for http errors
+                print("statusCode should be 200, but is \(requestStatusCode.statusCode)")
                 print("response = \(response)")
             }
             
