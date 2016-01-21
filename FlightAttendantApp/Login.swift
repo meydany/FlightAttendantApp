@@ -19,7 +19,7 @@ class Login{
     
     func login(){
         
-        let username = "oranluzon@walla.com"
+        let username = "cooldude1077"
         let password = "banana"
         
         //format for myParameters: "nameOfInputField=value&nameOfInputField=value"
